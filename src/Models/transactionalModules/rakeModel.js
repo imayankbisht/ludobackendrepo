@@ -26,6 +26,10 @@ const rakeHistory = new mongoose.Schema(
       type: String,
       required: true
     },
+    playerUsername: {
+      type: String,
+      require: true
+    },
     totalBetAmount: {
       type: Number,
       cast: "totalBetAmount = {VALUE} is not a valid number",

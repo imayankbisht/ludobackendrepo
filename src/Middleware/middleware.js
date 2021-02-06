@@ -25,6 +25,7 @@ const encrypt = async (text) => {
 
 const auth = async (req, res, next) => {
   try {
+    console.log(req.header("x-auth-token"));
     const token = req.header("x-auth-token");
     console.log(token);
     if (!token)
@@ -39,6 +40,7 @@ const auth = async (req, res, next) => {
     req.user = verified.id;
     next();
   } catch (err) {
+    // console.log(err);
     res.status(500).json({ error: err.message });
   }
 };

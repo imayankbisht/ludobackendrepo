@@ -6,16 +6,17 @@ const { encrypt, auth } = require("../Middleware/middleware");
 //CREATE ROOM
 router.post("/createroom", auth, async (req, res) => {
   try {
-    const { bet, rakePercent, rakeCap } = req.body;
+    const { bet, rakePercent, rakeCap, roomName } = req.body;
 
-    if (!bet || !rakePercent || !rakeCap)
+    if (!bet || !rakePercent || !rakeCap || !roomName)
       return res.status(400).json({ msg: "Not all fields have been entered." });
-    const totalPrize = (bet - rakeCap) * 2;
+    // const totalPrize = (bet - rakeCap) * 2;
     const newRoom = new Room({
       bet,
       rakePercent,
       rakeCap,
-      totalPrize
+      // totalPrize,
+      roomName
     });
     const savedRoom = await newRoom.save();
     console.log(savedRoom.bet);
@@ -52,8 +53,8 @@ router.get("/edit/:id", auth, async (req, res) => {
 router.put("/edit/:id", auth, async (req, res) => {
   // const { room } = req.body;
   // console.log(room);
-  const { bet, rakePercent, rakeCap } = req.body;
-  console.log(bet, rakePercent, rakeCap);
+  const { bet, rakePercent, rakeCap, roomName } = req.body;
+  console.log(bet, rakePercent, rakeCap, roomName);
   const totalPrize = (bet - rakeCap) * 2;
   // console.log(totalPrize);
 
@@ -61,7 +62,8 @@ router.put("/edit/:id", auth, async (req, res) => {
     bet,
     rakePercent,
     rakeCap,
-    totalPrize
+    totalPrize,
+    roomName
   };
 
   const loadRoom = await Room.updateMany(

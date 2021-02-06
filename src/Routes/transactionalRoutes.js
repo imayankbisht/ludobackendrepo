@@ -97,61 +97,64 @@ router.get("/refundHistory", auth, async (req, res) => {
   res.status(200).json(Response);
 });
 
-//rakeHistory
-// router.post("/rakeHistory", auth, async (req, res) => {
-//   try {
-//     console.log(req.body);
-//     const {
-//       roomId,
-//       channelId,
-//       playerId,
-//       winnerId,
-//       winnerName,
-//       username,
-//       totalBetAmount,
-//       rakeAmount,
-//       startTime,
-//       endTime
-//     } = req.body;
-//     if (
-//       !roomId ||
-//       !channelId ||
-//       !playerId ||
-//       !winnerId ||
-//       !winnerName ||
-//       !username ||
-//       !totalBetAmount ||
-//       !rakeAmount ||
-//       !startTime ||
-//       !endTime
-//     )
-//       return res.status(400).json({ msg: "Not all fields have been entered." });
+// rakeHistory
+router.post("/rakeHistory", auth, async (req, res) => {
+  try {
+    console.log(req.body);
+    const {
+      roomId,
+      channelId,
+      playerId,
+      winnerId,
+      winnerName,
+      username,
+      playerUsername,
+      totalBetAmount,
+      rakeAmount,
+      startTime,
+      endTime
+    } = req.body;
+    if (
+      !roomId ||
+      !channelId ||
+      !playerId ||
+      !winnerId ||
+      !winnerName ||
+      !username ||
+      !playerUsername ||
+      !totalBetAmount ||
+      !rakeAmount ||
+      !startTime ||
+      !endTime
+    )
+      return res.status(400).json({ msg: "Not all fields have been entered." });
 
-//     const newRake = new RakeHistory({
-//       roomId,
-//       channelId,
-//       playerId,
-//       username,
-//       winnerId,
-//       winnerName,
-//       totalBetAmount,
-//       rakeAmount,
-//       startTime,
-//       endTime
-//     });
-//     const savedRake = await newRake.save();
-//     console.log(savedRake);
-//     res.json(savedRake);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+    const newRake = new RakeHistory({
+      roomId,
+      channelId,
+      playerId,
+      winnerId,
+      winnerName,
+      username,
+      playerUsername,
+      totalBetAmount,
+      rakeAmount,
+      startTime,
+      endTime
+    });
+    const savedRake = await newRake.save();
+    console.log(savedRake);
+    res.json(savedRake);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 //Get All Rake History
 router.get("/rakeHistory", auth, async (req, res) => {
   const response = await RakeHistory.find({});
+  console.log(response);
   const Response = await encrypt(response);
-
   res.status(200).json(Response);
 });
 

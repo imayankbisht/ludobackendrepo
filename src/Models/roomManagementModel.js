@@ -32,8 +32,8 @@ const roomSchema = new mongoose.Schema(
           `rakeCap MUST be greater than zero, Given: ${props.value}`
       }
     },
-    totalPrize: {
-      type: Number
+    roomName: {
+      type: String
     }
   },
   {
